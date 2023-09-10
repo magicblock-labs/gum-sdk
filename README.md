@@ -59,5 +59,5 @@ We welcome contributions to improve the SDK. Please raise an issue or submit a p
 The Gum SDK is licensed under the [GNU General Public License v3.0](https://github.com/gumhq/sdk/blob/master/LICENSE).
 
 ## Support
-https://discord.com/invite/MBkdC3gxcv
+
 Join our Discord community at [discord.gg/tCswbSK5W2](https://discord.com/invite/MBkdC3gxcv) for any questions or support.
