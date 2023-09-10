@@ -1,11 +1,11 @@
 {
-  "name": "@gumhq/react-sdk",
+  "name": "@magicblock-labs/gum-react-sdk",
   "version": "3.0.1",
   "license": "GPL-3.0",
   "description": "React SDK for Gum",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gumhq/sdk.git",
+    "url": "https://github.com/magicblock-labs/gum-sdk.git",
     "directory": "packages/react-sdk"
   },
   "exports": {

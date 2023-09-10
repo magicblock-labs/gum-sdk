@@ -554,6 +554,19 @@
   resolved "https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.1.1.tgz"
   integrity sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==
 
+"@gumhq/sdk@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@gumhq/sdk/-/sdk-3.0.1.tgz#b3b9ee91dab8d48387f1878c8efd00b287f271a6"
+  integrity sha512-sgUsLkb/22U3WL0rNNdytjt2P33g2FwUsUW2XHHGnU+mX/jeSnMhs3z/lafzY9vdsCcnyyKrLm3unIOTBwbLkg==
+  dependencies:
+    "@project-serum/anchor" "^0.26.0"
+    axios "^1.2.6"
+    graphql "^16.6.0"
+    graphql-request "^5.1.0"
+    js-sha3 "^0.8.0"
+    randombytes "^2.1.0"
+    tweetnacl "^1.0.3"
+
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"

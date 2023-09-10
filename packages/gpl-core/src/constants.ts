@@ -26,13 +26,13 @@ export const GPLCORE_PROGRAMS = {
 
 export const GPLSESSION_PROGRAMS = {
   "mainnet-beta": new anchor.web3.PublicKey(
-    "3ao63wcSRNa76bncC2M3KupNtXBFiDyNbgK52VG7dLaE"
+    "KeyspM2ssCJbqUhQ4k7sveSiY4WjnYsrXkC8oDbwde5"
   ),
   devnet: new anchor.web3.PublicKey(
-    "3ao63wcSRNa76bncC2M3KupNtXBFiDyNbgK52VG7dLaE"
+    "KeyspM2ssCJbqUhQ4k7sveSiY4WjnYsrXkC8oDbwde5"
   ),
   localnet: new anchor.web3.PublicKey(
-    "3ao63wcSRNa76bncC2M3KupNtXBFiDyNbgK52VG7dLaE"
+    "KeyspM2ssCJbqUhQ4k7sveSiY4WjnYsrXkC8oDbwde5"
   ),
 };
 
