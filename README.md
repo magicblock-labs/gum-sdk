@@ -31,8 +31,8 @@ npx lerna run build
 
 | Name                                                                              | Description                                      | Version                                                                                                   |
 | --------------------------------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| [`@gumhq/sdk`](https://github.com/gumhq/sdk/tree/master/packages/gpl-core)        | Typescript client to interact with Gum protocol. | <p align="center"><img alt="npm" src="https://img.shields.io/npm/v/@gumhq/sdk?color=%23d45bff"></p>       |
-| [`@gumhq/react-sdk`](https://github.com/gumhq/sdk/tree/master/packages/react-sdk) | React Hooks for Gum protocol                     | <p align="center"><img alt="npm" src="https://img.shields.io/npm/v/@gumhq/react-sdk?color=%23d45bff"></p> |
+| [`@gumhq/sdk`](https://github.com/magicblock-labs/gum-sdk/tree/master/packages/gpl-core)        | Typescript client to interact with Gum protocol. | <p align="center"><img alt="npm" src="https://img.shields.io/npm/v/@magicblock-labs/gum-sdk?color=%23d45bff"></p>       |
+| [`@gumhq/react-sdk`](https://github.com/magicblock-labs/gum-sdk/tree/master/packages/react-sdk) | React Hooks for Gum protocol                     | <p align="center"><img alt="npm" src="https://img.shields.io/npm/v/@magicblock-labs/gum-react-sdk?color=%23d45bff"></p> |
 
 ## Documentation
 
@@ -59,5 +59,5 @@ We welcome contributions to improve the SDK. Please raise an issue or submit a p
 The Gum SDK is licensed under the [GNU General Public License v3.0](https://github.com/gumhq/sdk/blob/master/LICENSE).
 
 ## Support
-
-Join our Discord community at [https://discord.gg/tCswbSK5W2](https://discord.gg/tCswbSK5W2) for any questions or support.
+https://discord.com/invite/MBkdC3gxcv
+Join our Discord community at [discord.gg/tCswbSK5W2](https://discord.com/invite/MBkdC3gxcv) for any questions or support.
