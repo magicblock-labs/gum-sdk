@@ -31,8 +31,7 @@ npx lerna run build
 
 | Name                                                                              | Description                                      | Version                                                                                                   |
 | --------------------------------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| [`@gumhq/sdk`](https://github.com/magicblock-labs/gum-sdk/tree/master/packages/gpl-core)        | Typescript client to interact with Gum protocol. | <p align="center"><img alt="npm" src="https://img.shields.io/npm/v/@magicblock-labs/gum-sdk?color=%23d45bff"></p>       |
-| [`@gumhq/react-sdk`](https://github.com/magicblock-labs/gum-sdk/tree/master/packages/react-sdk) | React Hooks for Gum protocol                     | <p align="center"><img alt="npm" src="https://img.shields.io/npm/v/@magicblock-labs/gum-react-sdk?color=%23d45bff"></p> |
+| [`@magicblock-labs/gum-sdk`](https://github.com/magicblock-labs/gum-sdk/tree/master/packages/gpl-core)        | Typescript client to interact with Gum protocol. | <p align="center"><img alt="npm" src="https://img.shields.io/npm/v/@magicblock-labs/gum-sdk?color=%23d45bff"></p>       |
 
 ## Documentation
 
@@ -40,7 +39,7 @@ npx lerna run build
 - [Getting Started Guide](https://docs.gum.fun/protocol-overview/quickstart)
 - [FAQ](https://docs.gum.fun/introduction/faqs)
 
-You can find the complete documentation for the Gum SDK at https://docs.gum.fun/
+You can find the complete documentation for the Gum SDK at https://docs.magicblock.gg/Onboarding/Session%20Keys/introduction
 
 ## Gum Quickstart
 
@@ -60,4 +59,4 @@ The Gum SDK is licensed under the [GNU General Public License v3.0](https://gith
 
 ## Support
 
-Join our Discord community at [discord.gg/tCswbSK5W2](https://discord.com/invite/MBkdC3gxcv) for any questions or support.
+Join our Discord community at [https://discord.com/invite/MBkdC3gxcv](https://discord.com/invite/MBkdC3gxcv) for any questions or support.

@@ -13,7 +13,7 @@ yarn add @gumhq/react-sdk
 
 ## Documentation
 
-For more detailed documentation, please visit the [Gum documentation](https://docs.gum.fun/).
+For more detailed documentation, please visit the [Magicblock documentation](https://docs.gum.fun/).
 
 ## Usage
 

@@ -1,9 +1,21 @@
-# @gumhq/sdk
+# @magicblock-labs/gum-sdk
 
 <p align="center">
-  <img alt="npm" src="https://img.shields.io/npm/v/@gumhq/sdk?color=%23d45bff">
-  <img alt="npm" src="https://img.shields.io/npm/dt/@gumhq/sdk?color=%23d45bff">
+  <img alt="npm" src="https://img.shields.io/npm/v/@magicblock-labs/gum-sdk?color=%23d45bff">
+  <img alt="npm" src="https://img.shields.io/npm/dt/@magicblock-labs/gum-sdk?color=%23d45bff">
 </p>
+
+## Installation
+
+Yarn:
+```bash
+yarn add @magicblock-labs/gum-sdk
+```
+or 
+NPM:
+```bash
+npm i @magicblock-labs/gum-sdk
+```
 
 ## Documentation
 
@@ -11,15 +23,11 @@
 - [Getting Started Guide](https://docs.gum.fun/protocol-overview/quickstart)
 - [FAQ](https://docs.gum.fun/introduction/faqs)
 
-You can find the complete documentation for the Gum SDK at https://docs.gum.fun/
+You can find the complete documentation for the Gum Session Keys SDK at https://docs.magicblock.gg/Onboarding/Session%20Keys/introduction
 
-## Gum Quickstart
+## Example Game
 
-The Gum Quickstart is an excellent starting point for developers aiming to leverage Gum in their Next.js applications. This ready-to-use template not only expedites the setup process, but also includes functional examples and components to facilitate the creation of domain profiles, posts, and more. Check out the [Gum Quickstart](https://github.com/gumhq/gum-quickstart) to get started.
-
-## Example App
-
-Check out the [example app](https://github.com/gumhq/gum-example-app) that uses the Gum SDK to demonstrate its capabilities. The app is a simple React app that showcases the creation of a domain, profile, and posts.
+Check out the [example game](https://github.com/magicblock-labs/Kamikaze-Joe) that uses the Gum Session Keys SDK to demonstrate its capabilities. The game is a PvP arena that showcases the session keys usage.
 
 ## Contributing
 
@@ -27,8 +35,8 @@ We welcome contributions to improve the SDK. Please raise an issue or submit a p
 
 ## License
 
-The Gum SDK is licensed under the [GNU General Public License v3.0](https://github.com/gumhq/sdk/blob/master/LICENSE).
+The Gum Session Keys SDK is licensed under the [GNU General Public License v3.0](https://github.com/gumhq/sdk/blob/master/LICENSE).
 
 ## Support
 
-Join our Discord community at [https://discord.gg/tCswbSK5W2](https://discord.gg/tCswbSK5W2) for any questions or support.
+Join our Discord community at [https://discord.com/invite/MBkdC3gxcv](https://discord.com/invite/MBkdC3gxcv) for any questions or support.
