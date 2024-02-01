@@ -34,8 +34,8 @@ jobs:
       - name: Build packages
         run: yarn lerna run build
 
-      - name: Generate TypeDoc for @gumhq/sdk
-        run: yarn workspace @gumhq/sdk run build:docs
+      - name: Generate TypeDoc for @magicblock-labs/gum-sdk
+        run: yarn workspace @magicblock-labs/gum-sdk run build:docs
 
       - name: Generate TypeDoc for @gumhq/react-sdk
         run: yarn workspace @gumhq/react-sdk run build:docs

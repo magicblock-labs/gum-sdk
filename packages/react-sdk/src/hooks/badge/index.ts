@@ -1,4 +1,4 @@
-import { GATEWAY_SERVICE_URL, SDK } from "@gumhq/sdk";
+import { GATEWAY_SERVICE_URL, SDK } from "@magicblock-labs/gum-sdk";
 import { useState, useCallback } from "react";
 import { PublicKey } from "@solana/web3.js";
 import axios from "axios";

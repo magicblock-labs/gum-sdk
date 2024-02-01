@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createContext, useContext, useMemo, ReactNode } from 'react';
-import { SDK } from '@gumhq/sdk';
+import { SDK } from '@magicblock-labs/gum-sdk';
 
 interface GumContextValue {
   sdk: SDK;

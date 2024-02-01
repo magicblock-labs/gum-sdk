@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { SDK } from "@gumhq/sdk";
+import { SDK } from "@magicblock-labs/gum-sdk";
 import { PublicKey } from "@solana/web3.js";
 
 const useDomains = (sdk: SDK, authority: PublicKey) => {

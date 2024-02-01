@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { GraphQLClient } from 'graphql-request';
 import { AnchorWallet } from '@solana/wallet-adapter-react';
-import { SDK } from '@gumhq/sdk';
+import { SDK } from '@magicblock-labs/gum-sdk';
 import { Connection, ConfirmOptions, Cluster } from '@solana/web3.js';
 
 const useGum = (

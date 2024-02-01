@@ -1,4 +1,4 @@
-import { SDK } from "@gumhq/sdk";
+import { SDK } from "@magicblock-labs/gum-sdk";
 import { useState, useCallback } from "react";
 import { PublicKey, Transaction, Connection } from "@solana/web3.js";
 import { SendTransactionOptions } from '@solana/wallet-adapter-base';

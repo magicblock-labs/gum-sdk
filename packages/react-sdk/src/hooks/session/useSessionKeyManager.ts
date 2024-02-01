@@ -3,7 +3,7 @@ import { SendTransactionOptions } from '@solana/wallet-adapter-base';
 import { Keypair, PublicKey, Transaction, Cluster, Connection, SystemProgram } from '@solana/web3.js';
 import { useEffect, useRef, useState } from 'react';
 import { generateEncryptionKey, encrypt, decrypt } from '../../utils/crypto';
-import { SessionTokenManager } from '@gumhq/sdk';
+import { SessionTokenManager } from '@magicblock-labs/gum-sdk';
 import * as nacl from 'tweetnacl';
 import { BN } from "@project-serum/anchor";
 import { deleteItemFromIndexedDB, getItemFromIndexedDB, setItemToIndexedDB } from 'src/utils/indexedDB';
@@ -193,7 +193,7 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
   const getSessionToken = async (): Promise<string | null> => {
     try {
       const sessionKey = await getItemFromIndexedDB(WALLET_PUBKEY_TO_SESSION_STORE, wallet.publicKey.toString());
-      
+
       if (!sessionKey) {
         resetSessionData();
         return null;
@@ -239,7 +239,7 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
   const createSession = async (targetProgramPublicKey: PublicKey, topUp = false, expiryInMinutes = 60, sessionCreatedCallback?: (sessionInfo: { sessionToken: string; publicKey: string; }) => void): Promise<SessionWalletInterface> => {
     return withLoading(async () => {
       try {
-        
+
         // if expiry is more than 24 hours then throw error
         if (expiryInMinutes > 24 * 60) {
           throw new Error("Expiry cannot be more than 24 hours.");
@@ -375,7 +375,7 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
           tx.feePayer = sessionTokenPublicKey;
           tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
           const estimatedFee = await tx.getEstimatedFee(connection);
-          
+
           if (estimatedFee && sessionSignerSolanaBalance > estimatedFee) {
             const transaction = new Transaction().add(
               SystemProgram.transfer({

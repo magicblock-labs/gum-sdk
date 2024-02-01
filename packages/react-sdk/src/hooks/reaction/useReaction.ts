@@ -1,4 +1,4 @@
-import { SDK } from "@gumhq/sdk";
+import { SDK } from "@magicblock-labs/gum-sdk";
 import { useState, useCallback } from "react";
 import { PublicKey, Transaction, Connection } from "@solana/web3.js";
 import { SendTransactionOptions } from '@solana/wallet-adapter-base';
@@ -126,7 +126,7 @@ const useReaction = (sdk: SDK, ) => {
 
       try {
         const ixMethodBuilder = deleteReactionIxMethodBuilder(reactionAccount, fromProfile, toPostAccount, owner, refundReceiver);
-        
+
         if (ixMethodBuilder) {
           return await ixMethodBuilder.rpc();
         } else {
@@ -157,7 +157,7 @@ const useReaction = (sdk: SDK, ) => {
 
       try {
         const ixMethodBuilder = deleteReactionWithSessionIxMethodBuilder(reactionAccount, fromProfile, toPostAccount, sessionPublicKey, sessionAccount, refundReceiver);
-        
+
         if (ixMethodBuilder) {
           const tx = await ixMethodBuilder.transaction();
           if (tx) {
@@ -213,7 +213,7 @@ const useReaction = (sdk: SDK, ) => {
   }, [sdk]);
 
 
-  return { 
+  return {
     createReaction,
     createReactionWithSession,
     createReactionIxMethodBuilder,

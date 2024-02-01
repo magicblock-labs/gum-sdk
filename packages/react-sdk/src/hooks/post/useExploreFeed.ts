@@ -1,4 +1,4 @@
-import { SDK } from "@gumhq/sdk";
+import { SDK } from "@magicblock-labs/gum-sdk";
 import { useState, useEffect, useCallback } from "react";
 
 const useExploreFeed = (sdk: SDK) => {

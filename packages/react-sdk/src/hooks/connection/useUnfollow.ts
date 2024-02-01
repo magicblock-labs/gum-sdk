@@ -1,4 +1,4 @@
-import { SDK } from "@gumhq/sdk";
+import { SDK } from "@magicblock-labs/gum-sdk";
 import { useState, useCallback } from "react";
 import { PublicKey, Transaction, Connection } from "@solana/web3.js";
 import { SendTransactionOptions } from '@solana/wallet-adapter-base';
@@ -28,7 +28,7 @@ const useUnfollow = (sdk: SDK) => {
           owner,
           refundReceiver
         );
-        
+
         if (ixMethodBuilder) {
           return await ixMethodBuilder.rpc();
         } else {
@@ -68,7 +68,7 @@ const useUnfollow = (sdk: SDK) => {
           sessionAccount,
           refundReceiver
         );
-        
+
         if (ixMethodBuilder) {
           const tx = await ixMethodBuilder.transaction();
           if (tx) {

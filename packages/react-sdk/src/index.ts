@@ -38,6 +38,6 @@ export {
   GPLSESSION_PROGRAMS,
   GATEWAY_SERVICE_URL,
   GUM_TLD_ACCOUNT,
-} from "@gumhq/sdk";
+} from "@magicblock-labs/gum-sdk";
 
 export type { SessionWalletInterface } from "./hooks";
