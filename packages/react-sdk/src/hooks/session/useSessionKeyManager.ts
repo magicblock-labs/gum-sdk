@@ -14,8 +14,8 @@ export interface SessionWalletInterface {
   isLoading: boolean;
   error: string | null;
   sessionToken: string | null;
-  signTransaction: (<T extends Transaction>(transaction: T) => Promise<T>) | undefined;
-  signAllTransactions: (<T extends Transaction >(transactions: T[]) => Promise<T[]>) | undefined;
+  signTransaction: (<T extends Transaction>(transaction: T, connection?: Connection) => Promise<T>) | undefined;
+  signAllTransactions: (<T extends Transaction >(transactions: T[], connection?: Connection) => Promise<T[]>) | undefined;
   signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
   sendTransaction: (<T extends Transaction>(transaction: T, connection?: Connection, options?: SendTransactionOptions) => Promise<string>) | undefined;
   signAndSendTransaction: (<T extends Transaction>(transactions: T | T[], connection?: Connection, options?: SendTransactionOptions) => Promise<string[]>) | undefined;
@@ -96,10 +96,14 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
     }
   };
 
-  const signTransaction = async <T extends Transaction>(transaction: T): Promise<T> => {
+  const signTransaction = async <T extends Transaction>(transaction: T, connection?: Connection): Promise<T> => {
     return withLoading(async () => {
       if (!keypairRef.current || !sessionTokenRef.current) {
         throw new Error('Cannot sign transaction - keypair or session token not loaded. Please create a session first.');
+      }
+
+      if (!connection) {
+        connection = sessionConnection;
       }
 
       const { blockhash } = await connection.getLatestBlockhash("finalized");
@@ -113,9 +117,9 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
     });
   };
 
-  const signAllTransactions = async <T extends Transaction>(transactions: T[]): Promise<T[]> => {
+  const signAllTransactions = async <T extends Transaction>(transactions: T[], connection?: Connection): Promise<T[]> => {
     return withLoading(async () => {
-      return Promise.all(transactions.map((transaction) => signTransaction(transaction)));
+      return Promise.all(transactions.map((transaction) => signTransaction(transaction, connection)));
     });
   };
 
