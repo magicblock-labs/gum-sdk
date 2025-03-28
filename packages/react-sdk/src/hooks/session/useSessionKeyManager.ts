@@ -14,8 +14,8 @@ export interface SessionWalletInterface {
   isLoading: boolean;
   error: string | null;
   sessionToken: string | null;
-  signTransaction: (<T extends Transaction>(transaction: T) => Promise<T>) | undefined;
-  signAllTransactions: (<T extends Transaction >(transactions: T[]) => Promise<T[]>) | undefined;
+  signTransaction: (<T extends Transaction>(transaction: T, connection?: Connection, sendOptions?: SendTransactionOptions) => Promise<T>) | undefined;
+  signAllTransactions: (<T extends Transaction >(transactions: T[], connection?: Connection, sendOptions?: SendTransactionOptions) => Promise<T[]>) | undefined;
   signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
   sendTransaction: (<T extends Transaction>(transaction: T, connection?: Connection, options?: SendTransactionOptions) => Promise<string>) | undefined;
   signAndSendTransaction: (<T extends Transaction>(transactions: T | T[], connection?: Connection, options?: SendTransactionOptions) => Promise<string[]>) | undefined;
@@ -96,16 +96,22 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
     }
   };
 
-  const signTransaction = async <T extends Transaction>(transaction: T): Promise<T> => {
+  const signTransaction = async <T extends Transaction>(transaction: T, connection?: Connection, sendOptions?: SendTransactionOptions): Promise<T> => {
     return withLoading(async () => {
       if (!keypairRef.current || !sessionTokenRef.current) {
         throw new Error('Cannot sign transaction - keypair or session token not loaded. Please create a session first.');
       }
 
-      const { blockhash } = await connection.getLatestBlockhash("finalized");
+      if (!connection) {
+        connection = sessionConnection;
+      }
+
       const feePayer = keypairRef.current.publicKey;
 
-      transaction.recentBlockhash = transaction.recentBlockhash || blockhash;
+      transaction.recentBlockhash = transaction.recentBlockhash || (await connection.getLatestBlockhash({
+        commitment: sendOptions?.preflightCommitment,
+        minContextSlot: sendOptions?.minContextSlot,
+      })).blockhash;
       transaction.feePayer = transaction.feePayer || feePayer;
       transaction.sign(keypairRef.current);
 
@@ -113,9 +119,9 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
     });
   };
 
-  const signAllTransactions = async <T extends Transaction>(transactions: T[]): Promise<T[]> => {
+  const signAllTransactions = async <T extends Transaction>(transactions: T[], connection?: Connection, sendOptions?: SendTransactionOptions): Promise<T[]> => {
     return withLoading(async () => {
-      return Promise.all(transactions.map((transaction) => signTransaction(transaction)));
+      return Promise.all(transactions.map((transaction) => signTransaction(transaction, connection, sendOptions)));
     });
   };
 
@@ -169,7 +175,7 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
         transaction.partialSign(...signers);
       }
 
-      transaction = await signTransaction(transaction);
+      transaction = await signTransaction(transaction, connection);
 
       const txid = await connection.sendRawTransaction(
         transaction.serialize(),
