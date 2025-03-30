@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { generateEncryptionKey, encrypt, decrypt } from '../../utils/crypto';
 import { SessionTokenManager } from '@magicblock-labs/gum-sdk';
 import * as nacl from 'tweetnacl';
-import { BN } from "@project-serum/anchor";
+import {BN, web3} from "@coral-xyz/anchor";
 import { deleteItemFromIndexedDB, getItemFromIndexedDB, setItemToIndexedDB } from 'src/utils/indexedDB';
 
 export interface SessionWalletInterface {
@@ -19,7 +19,7 @@ export interface SessionWalletInterface {
   signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
   sendTransaction: (<T extends Transaction>(transaction: T, connection?: Connection, options?: SendTransactionOptions) => Promise<string>) | undefined;
   signAndSendTransaction: (<T extends Transaction>(transactions: T | T[], connection?: Connection, options?: SendTransactionOptions) => Promise<string[]>) | undefined;
-  createSession: (targetProgram: PublicKey, topUp: boolean, validUntil?: number, sessionCreatedCallback?: (sessionInfo: { sessionToken: string; publicKey: string; }) => void) => Promise<SessionWalletInterface | undefined>;
+  createSession: (targetProgram: PublicKey, topUpLamports?: number, validUntil?: number, sessionCreatedCallback?: (sessionInfo: { sessionToken: string; publicKey: string; }) => void) => Promise<SessionWalletInterface | undefined>;
   revokeSession: () => Promise<string | null>;
   getSessionToken: () => Promise<string | null>;
 }
@@ -37,7 +37,7 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
   const [error, setError] = useState<string | null>(null);
   const sessionConnection = connection;
 
-  const sdk = new SessionTokenManager(wallet, connection, cluster)
+  const sdk = new SessionTokenManager(wallet, connection)
 
   // functions for keypair management
   const generateKeypair = () => {
@@ -242,7 +242,8 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
     return null;
   };
 
-  const createSession = async (targetProgramPublicKey: PublicKey, topUp = false, expiryInMinutes = 60, sessionCreatedCallback?: (sessionInfo: { sessionToken: string; publicKey: string; }) => void): Promise<SessionWalletInterface> => {
+  const createSession = async (targetProgramPublicKey: PublicKey, topUpLamports = 0, expiryInMinutes = 60, sessionCreatedCallback?: (sessionInfo: { sessionToken: string; publicKey: string; }) => void): Promise<SessionWalletInterface> => {
+    const topUp = topUpLamports > 0;
     return withLoading(async () => {
       try {
 
@@ -259,6 +260,7 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
         const expiryTimestamp = Math.ceil((Date.now() + expiryInMinutes * 60 * 1000) / 1000);
 
         const validUntilBN: BN | null = new BN(expiryTimestamp);
+        const topUpLamportsBN: BN | null = topUp ? new BN(topUpLamports) : null;
 
         const sessionKeypair: Keypair | null = keypairRef.current;
         if (!sessionKeypair) {
@@ -266,7 +268,7 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
         }
         const sessionSignerPublicKey = sessionKeypair.publicKey;
 
-        const instructionMethodBuilder = sdk.program.methods.createSession(topUp, validUntilBN)
+        const instructionMethodBuilder = sdk.program.methods.createSession(topUp, validUntilBN, topUpLamportsBN)
           .accounts({
             targetProgram: targetProgramPublicKey,
             sessionSigner: sessionSignerPublicKey,
@@ -363,8 +365,10 @@ export function useSessionKeyManager(wallet: AnchorWallet, connection: Connectio
 
         const instructionMethodBuilder = sdk.program.methods.revokeSession()
           .accounts({
-            sessionToken: sessionTokenRef.current,
+            // @ts-ignore
+            sessionToken: new web3.PublicKey(sessionTokenRef.current),
             authority: wallet.publicKey,
+            systemProgram: SystemProgram.programId,
           });
         const txId = await instructionMethodBuilder.rpc();
 

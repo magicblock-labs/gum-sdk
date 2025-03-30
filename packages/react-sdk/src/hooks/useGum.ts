@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { GraphQLClient } from 'graphql-request';
 import { AnchorWallet } from '@solana/wallet-adapter-react';
 import { SDK } from '@magicblock-labs/gum-sdk';
 import { Connection, ConfirmOptions, Cluster } from '@solana/web3.js';
@@ -8,11 +7,9 @@ const useGum = (
   wallet: AnchorWallet,
   connection: Connection,
   opts: ConfirmOptions,
-  cluster: Cluster | "localnet",
-  graphqlClient?: GraphQLClient
 ) => {
   const sdk = useMemo(() => {
-    return new SDK(wallet, connection, opts, cluster, graphqlClient);
+    return new SDK(wallet, connection, opts);
   }, [wallet]);
 
   return sdk;

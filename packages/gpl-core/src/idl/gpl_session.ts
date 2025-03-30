@@ -1,34 +1,65 @@
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/gpl_session.json`.
+ */
 export type GplSession = {
-  "version": "0.2.0",
-  "name": "gpl_session",
+  "address": "KeyspM2ssCJbqUhQ4k7sveSiY4WjnYsrXkC8oDbwde5",
+  "metadata": {
+    "name": "SessionKeys",
+    "version": "2.0.7",
+    "spec": "0.1.0",
+    "description": "Session Keys Protocol",
+    "repository": "https://github.com/magicblock-labs/gum-program-library"
+  },
   "instructions": [
     {
       "name": "createSession",
+      "discriminator": [
+        242,
+        193,
+        143,
+        179,
+        150,
+        25,
+        122,
+        227
+      ],
       "accounts": [
         {
           "name": "sessionToken",
-          "isMut": true,
-          "isSigner": false,
+          "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "const",
-                "type": "string",
-                "value": "session_token"
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110
+                ]
               },
               {
                 "kind": "account",
-                "type": "publicKey",
-                "path": "target_program"
+                "path": "targetProgram"
               },
               {
                 "kind": "account",
-                "type": "publicKey",
-                "path": "session_signer"
+                "path": "sessionSigner"
               },
               {
                 "kind": "account",
-                "type": "publicKey",
                 "path": "authority"
               }
             ]
@@ -36,26 +67,23 @@ export type GplSession = {
         },
         {
           "name": "sessionSigner",
-          "isMut": true,
-          "isSigner": true
+          "writable": true,
+          "signer": true
         },
         {
           "name": "authority",
-          "isMut": true,
-          "isSigner": true
+          "writable": true,
+          "signer": true
         },
         {
           "name": "targetProgram",
-          "isMut": false,
-          "isSigner": false,
           "docs": [
             "CHECK the target program is actually a program."
           ]
         },
         {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": [
@@ -70,56 +98,79 @@ export type GplSession = {
           "type": {
             "option": "i64"
           }
+        },
+        {
+          "name": "lamports",
+          "type": {
+            "option": "u64"
+          }
         }
       ]
     },
     {
       "name": "revokeSession",
+      "discriminator": [
+        86,
+        92,
+        198,
+        120,
+        144,
+        2,
+        7,
+        194
+      ],
       "accounts": [
         {
           "name": "sessionToken",
-          "isMut": true,
-          "isSigner": false,
+          "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "const",
-                "type": "string",
-                "value": "session_token"
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110
+                ]
               },
               {
                 "kind": "account",
-                "type": "publicKey",
-                "account": "SessionToken",
-                "path": "session_token.target_program"
+                "path": "session_token.target_program",
+                "account": "sessionToken"
               },
               {
                 "kind": "account",
-                "type": "publicKey",
-                "account": "SessionToken",
-                "path": "session_token.session_signer"
+                "path": "session_token.session_signer",
+                "account": "sessionToken"
               },
               {
                 "kind": "account",
-                "type": "publicKey",
-                "account": "SessionToken",
-                "path": "session_token.authority"
+                "path": "session_token.authority",
+                "account": "sessionToken"
               }
             ]
-          },
-          "relations": [
-            "authority"
-          ]
+          }
         },
         {
           "name": "authority",
-          "isMut": true,
-          "isSigner": false
+          "writable": true,
+          "relations": [
+            "sessionToken"
+          ]
         },
         {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": []
@@ -128,176 +179,36 @@ export type GplSession = {
   "accounts": [
     {
       "name": "sessionToken",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "authority",
-            "type": "publicKey"
-          },
-          {
-            "name": "targetProgram",
-            "type": "publicKey"
-          },
-          {
-            "name": "sessionSigner",
-            "type": "publicKey"
-          },
-          {
-            "name": "validUntil",
-            "type": "i64"
-          }
-        ]
-      }
+      "discriminator": [
+        233,
+        4,
+        115,
+        14,
+        46,
+        21,
+        1,
+        15
+      ]
     }
   ],
   "errors": [
     {
       "code": 6000,
-      "name": "ValidityTooLong",
+      "name": "validityTooLong",
       "msg": "Requested validity is too long"
     },
     {
       "code": 6001,
-      "name": "InvalidToken",
+      "name": "invalidToken",
       "msg": "Invalid session token"
     },
     {
       "code": 6002,
-      "name": "NoToken",
+      "name": "noToken",
       "msg": "No session token provided"
     }
-  ]
-};
-
-export const IDL: GplSession = {
-  "version": "0.2.0",
-  "name": "gpl_session",
-  "instructions": [
-    {
-      "name": "createSession",
-      "accounts": [
-        {
-          "name": "sessionToken",
-          "isMut": true,
-          "isSigner": false,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "type": "string",
-                "value": "session_token"
-              },
-              {
-                "kind": "account",
-                "type": "publicKey",
-                "path": "target_program"
-              },
-              {
-                "kind": "account",
-                "type": "publicKey",
-                "path": "session_signer"
-              },
-              {
-                "kind": "account",
-                "type": "publicKey",
-                "path": "authority"
-              }
-            ]
-          }
-        },
-        {
-          "name": "sessionSigner",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "targetProgram",
-          "isMut": false,
-          "isSigner": false,
-          "docs": [
-            "CHECK the target program is actually a program."
-          ]
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "topUp",
-          "type": {
-            "option": "bool"
-          }
-        },
-        {
-          "name": "validUntil",
-          "type": {
-            "option": "i64"
-          }
-        }
-      ]
-    },
-    {
-      "name": "revokeSession",
-      "accounts": [
-        {
-          "name": "sessionToken",
-          "isMut": true,
-          "isSigner": false,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "type": "string",
-                "value": "session_token"
-              },
-              {
-                "kind": "account",
-                "type": "publicKey",
-                "account": "SessionToken",
-                "path": "session_token.target_program"
-              },
-              {
-                "kind": "account",
-                "type": "publicKey",
-                "account": "SessionToken",
-                "path": "session_token.session_signer"
-              },
-              {
-                "kind": "account",
-                "type": "publicKey",
-                "account": "SessionToken",
-                "path": "session_token.authority"
-              }
-            ]
-          },
-          "relations": [
-            "authority"
-          ]
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
-    }
   ],
-  "accounts": [
+  "types": [
     {
       "name": "sessionToken",
       "type": {
@@ -305,15 +216,15 @@ export const IDL: GplSession = {
         "fields": [
           {
             "name": "authority",
-            "type": "publicKey"
+            "type": "pubkey"
           },
           {
             "name": "targetProgram",
-            "type": "publicKey"
+            "type": "pubkey"
           },
           {
             "name": "sessionSigner",
-            "type": "publicKey"
+            "type": "pubkey"
           },
           {
             "name": "validUntil",
@@ -321,23 +232,6 @@ export const IDL: GplSession = {
           }
         ]
       }
-    }
-  ],
-  "errors": [
-    {
-      "code": 6000,
-      "name": "ValidityTooLong",
-      "msg": "Requested validity is too long"
-    },
-    {
-      "code": 6001,
-      "name": "InvalidToken",
-      "msg": "Invalid session token"
-    },
-    {
-      "code": 6002,
-      "name": "NoToken",
-      "msg": "No session token provided"
     }
   ]
 };
