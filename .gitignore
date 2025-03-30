@@ -2,3 +2,5 @@ node_modules/
 test-ledger/
 packages/*/lib/
 .idea
+.DS_Store
+yarn.lock
