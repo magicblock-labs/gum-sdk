@@ -7,10 +7,10 @@
 export type GplSession = {
   "address": "KeyspM2ssCJbqUhQ4k7sveSiY4WjnYsrXkC8oDbwde5",
   "metadata": {
-    "name": "SessionKeys",
-    "version": "2.0.7",
+    "name": "gplSession",
+    "version": "2.0.8",
     "spec": "0.1.0",
-    "description": "Session Keys Protocol",
+    "description": "Gum Session Protocol (GPL Session)",
     "repository": "https://github.com/magicblock-labs/gum-program-library"
   },
   "instructions": [
@@ -73,6 +73,203 @@ export type GplSession = {
         {
           "name": "authority",
           "writable": true,
+          "signer": true
+        },
+        {
+          "name": "targetProgram",
+          "docs": [
+            "CHECK the target program is actually a program."
+          ]
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "topUp",
+          "type": {
+            "option": "bool"
+          }
+        },
+        {
+          "name": "validUntil",
+          "type": {
+            "option": "i64"
+          }
+        },
+        {
+          "name": "lamports",
+          "type": {
+            "option": "u64"
+          }
+        }
+      ]
+    },
+    {
+      "name": "createSessionV2",
+      "discriminator": [
+        223,
+        233,
+        108,
+        7,
+        65,
+        194,
+        235,
+        38
+      ],
+      "accounts": [
+        {
+          "name": "sessionToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110,
+                  95,
+                  118,
+                  50
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "targetProgram"
+              },
+              {
+                "kind": "account",
+                "path": "sessionSigner"
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sessionSigner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "feePayer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "targetProgram",
+          "docs": [
+            "CHECK the target program is actually a program."
+          ]
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "topUp",
+          "type": {
+            "option": "bool"
+          }
+        },
+        {
+          "name": "validUntil",
+          "type": {
+            "option": "i64"
+          }
+        },
+        {
+          "name": "lamports",
+          "type": {
+            "option": "u64"
+          }
+        }
+      ]
+    },
+    {
+      "name": "createSessionWithPayer",
+      "discriminator": [
+        87,
+        133,
+        171,
+        12,
+        60,
+        146,
+        190,
+        252
+      ],
+      "accounts": [
+        {
+          "name": "sessionToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "targetProgram"
+              },
+              {
+                "kind": "account",
+                "path": "sessionSigner"
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sessionSigner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authority",
           "signer": true
         },
         {
@@ -174,6 +371,83 @@ export type GplSession = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "revokeSessionV2",
+      "discriminator": [
+        211,
+        59,
+        125,
+        188,
+        43,
+        155,
+        8,
+        102
+      ],
+      "accounts": [
+        {
+          "name": "sessionToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110,
+                  95,
+                  118,
+                  50
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "session_token.target_program",
+                "account": "sessionTokenV2"
+              },
+              {
+                "kind": "account",
+                "path": "session_token.session_signer",
+                "account": "sessionTokenV2"
+              },
+              {
+                "kind": "account",
+                "path": "session_token.authority",
+                "account": "sessionTokenV2"
+              }
+            ]
+          }
+        },
+        {
+          "name": "feePayer",
+          "writable": true,
+          "relations": [
+            "sessionToken"
+          ]
+        },
+        {
+          "name": "authority",
+          "relations": [
+            "sessionToken"
+          ]
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -188,6 +462,19 @@ export type GplSession = {
         21,
         1,
         15
+      ]
+    },
+    {
+      "name": "sessionTokenV2",
+      "discriminator": [
+        178,
+        3,
+        85,
+        254,
+        13,
+        116,
+        128,
+        41
       ]
     }
   ],
@@ -206,6 +493,11 @@ export type GplSession = {
       "code": 6002,
       "name": "noToken",
       "msg": "No session token provided"
+    },
+    {
+      "code": 6003,
+      "name": "invalidAuthority",
+      "msg": "Invalid authority"
     }
   ],
   "types": [
@@ -224,6 +516,34 @@ export type GplSession = {
           },
           {
             "name": "sessionSigner",
+            "type": "pubkey"
+          },
+          {
+            "name": "validUntil",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "sessionTokenV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "targetProgram",
+            "type": "pubkey"
+          },
+          {
+            "name": "sessionSigner",
+            "type": "pubkey"
+          },
+          {
+            "name": "feePayer",
             "type": "pubkey"
           },
           {
