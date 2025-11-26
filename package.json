@@ -1,6 +1,6 @@
 {
   "name": "gpl-ts",
-  "version": "1.0.0",
+  "version": "3.0.10",
   "main": "lib/index.js",
   "license": "GPL-V3",
   "files": [
