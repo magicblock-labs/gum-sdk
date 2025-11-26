@@ -1,6 +1,6 @@
 {
   "name": "@magicblock-labs/gum-sdk",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "main": "lib/index.js",
   "license": "GPL-3.0",
   "description": "Gum Protocol SDK",
