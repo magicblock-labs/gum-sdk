@@ -2,7 +2,7 @@
   "address": "KeyspM2ssCJbqUhQ4k7sveSiY4WjnYsrXkC8oDbwde5",
   "metadata": {
     "name": "gpl_session",
-    "version": "2.0.6",
+    "version": "2.0.8",
     "spec": "0.1.0",
     "description": "Gum Session Protocol (GPL Session)",
     "repository": "https://github.com/magicblock-labs/gum-program-library"
@@ -67,6 +67,203 @@
         {
           "name": "authority",
           "writable": true,
+          "signer": true
+        },
+        {
+          "name": "target_program",
+          "docs": [
+            "CHECK the target program is actually a program."
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "top_up",
+          "type": {
+            "option": "bool"
+          }
+        },
+        {
+          "name": "valid_until",
+          "type": {
+            "option": "i64"
+          }
+        },
+        {
+          "name": "lamports",
+          "type": {
+            "option": "u64"
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_session_v2",
+      "discriminator": [
+        223,
+        233,
+        108,
+        7,
+        65,
+        194,
+        235,
+        38
+      ],
+      "accounts": [
+        {
+          "name": "session_token",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110,
+                  95,
+                  118,
+                  50
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "target_program"
+              },
+              {
+                "kind": "account",
+                "path": "session_signer"
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "session_signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "target_program",
+          "docs": [
+            "CHECK the target program is actually a program."
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "top_up",
+          "type": {
+            "option": "bool"
+          }
+        },
+        {
+          "name": "valid_until",
+          "type": {
+            "option": "i64"
+          }
+        },
+        {
+          "name": "lamports",
+          "type": {
+            "option": "u64"
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_session_with_payer",
+      "discriminator": [
+        87,
+        133,
+        171,
+        12,
+        60,
+        146,
+        190,
+        252
+      ],
+      "accounts": [
+        {
+          "name": "session_token",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "target_program"
+              },
+              {
+                "kind": "account",
+                "path": "session_signer"
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "session_signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authority",
           "signer": true
         },
         {
@@ -168,6 +365,83 @@
         }
       ],
       "args": []
+    },
+    {
+      "name": "revoke_session_v2",
+      "discriminator": [
+        211,
+        59,
+        125,
+        188,
+        43,
+        155,
+        8,
+        102
+      ],
+      "accounts": [
+        {
+          "name": "session_token",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110,
+                  95,
+                  118,
+                  50
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "session_token.target_program",
+                "account": "SessionTokenV2"
+              },
+              {
+                "kind": "account",
+                "path": "session_token.session_signer",
+                "account": "SessionTokenV2"
+              },
+              {
+                "kind": "account",
+                "path": "session_token.authority",
+                "account": "SessionTokenV2"
+              }
+            ]
+          }
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "relations": [
+            "session_token"
+          ]
+        },
+        {
+          "name": "authority",
+          "relations": [
+            "session_token"
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -182,6 +456,19 @@
         21,
         1,
         15
+      ]
+    },
+    {
+      "name": "SessionTokenV2",
+      "discriminator": [
+        178,
+        3,
+        85,
+        254,
+        13,
+        116,
+        128,
+        41
       ]
     }
   ],
@@ -200,6 +487,11 @@
       "code": 6002,
       "name": "NoToken",
       "msg": "No session token provided"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidAuthority",
+      "msg": "Invalid authority"
     }
   ],
   "types": [
@@ -218,6 +510,34 @@
           },
           {
             "name": "session_signer",
+            "type": "pubkey"
+          },
+          {
+            "name": "valid_until",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SessionTokenV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "target_program",
+            "type": "pubkey"
+          },
+          {
+            "name": "session_signer",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_payer",
             "type": "pubkey"
           },
           {
