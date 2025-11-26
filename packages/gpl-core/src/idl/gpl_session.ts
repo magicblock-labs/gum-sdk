@@ -7,10 +7,10 @@
 export type GplSession = {
   "address": "KeyspM2ssCJbqUhQ4k7sveSiY4WjnYsrXkC8oDbwde5",
   "metadata": {
-    "name": "gplSession",
+    "name": "SessionKeys",
     "version": "2.0.8",
     "spec": "0.1.0",
-    "description": "Gum Session Protocol (GPL Session)",
+    "description": "Session Keys Protocol",
     "repository": "https://github.com/magicblock-labs/gum-program-library"
   },
   "instructions": [
